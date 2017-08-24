@@ -119,7 +119,6 @@
             transform: `translate3d(0,0,0) scale(1)`
           }
         }
-
       /*  animations.registerAnimation({
           name: 'move',
           animation,
