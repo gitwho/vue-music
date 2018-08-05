@@ -11,7 +11,8 @@
   import {getSingerDetail} from 'api/singer'
   import {ERR_OK} from 'api/config'
   import MusicList from 'components/music-list/music-list'
-  import {createSong} from 'common/js/song'
+  import {createSong2} from 'common/js/song'
+  import {getSongVkey} from 'api/songVkey'
 
   export default {
     computed: {
@@ -50,12 +51,24 @@
       },
       _normalizeSongs(list){
         let ret = []
+
         list.forEach((item) => {
           let {musicData} = item
           if (musicData.songid && musicData.albummid) {
-            ret.push(createSong(musicData))
+            //  2018 播放地址新改动
+            getSongVkey(musicData.songmid).then((res) => {
+              if(res.code === ERR_OK) {
+                const songVkey = res.data.items[0].vkey;
+                ret.push(createSong2(musicData, songVkey))
+              }
+            })
+
+            /* 原先*/
+            // ret.push(createSong(musicData))
+
           }
         })
+
         return ret
       }
     },

@@ -13,6 +13,7 @@ export function shuffle(arr) {
   return _arr
 }
 
+// 节流函数: delay时间内 只调用一次func
 export function debounce(func, delay) {
   let timer
 

@@ -24,6 +24,14 @@
       listenScroll: {
         type: Boolean,
         default: false
+      },
+      pullup: {
+        type: Boolean,
+        default: false
+      },
+      beforeScroll: {
+        type: Boolean,
+        default: false
       }
     },
     mounted() {
@@ -45,6 +53,21 @@
           let me = this // 保留vue实例的this
           this.scroll.on('scroll', (pos) => {  // this指向scroll,所以钩子函数内改为me
             me.$emit('scroll', pos) //vue实例调用emit方法，发送scroll事件
+          })
+        }
+//        滚动加载
+        if(this.pullup) {
+            //scrollEnd 滚动完了， scrollToEnd 滚动到底部
+          this.scroll.on('scrollEnd', () => {
+            if(this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+              this.$emit('scrollToEnd')
+            }
+          })
+        }
+
+        if (this.beforeScroll) {
+          this.scroll.on('beforeScrollStart', () => {
+            this.$emit('beforeScroll')
           })
         }
       },

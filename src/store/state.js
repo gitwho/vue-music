@@ -1,5 +1,6 @@
 //状态管理
 import {playMode} from 'common/js/config'
+import {loadSearch} from 'common/js/cache'
 
 const state = {
   singer: {},
@@ -8,7 +9,11 @@ const state = {
   playList: [],
   sequenceList: [],
   mode: playMode.sequence,
-  currentIndex: -1
+  currentIndex: -1,
+  disc: {},
+  topList: {},
+  //从本地存储获取值
+  searchHistory: loadSearch()
 }
 
 export default state

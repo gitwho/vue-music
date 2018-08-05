@@ -5,17 +5,17 @@ import {shuffle} from 'common/js/util'
 export const playlistMixin = {
   computed: {
     ...mapGetters([
-      'playlist'
+      'playList'
     ])
   },
   mounted() {
-    this.handlePlaylist(this.playlist)
+    this.handlePlaylist(this.playList)
   },
   activated() {
-    this.handlePlaylist(this.playlist)
+    this.handlePlaylist(this.playList)
   },
   watch: {
-    playlist(newVal) {
+    playList(newVal) {
       this.handlePlaylist(newVal)
     }
   },
@@ -31,12 +31,12 @@ export const playerMixin = {
     iconMode() {
       return this.mode === playMode.sequence ? 'icon-sequence' : this.mode === playMode.loop ? 'icon-loop' : 'icon-random'
     },
+
     ...mapGetters([
       'sequenceList',
-      'playlist',
       'currentSong',
-      'mode',
-      'favoriteList'
+      'playList',
+      'mode'
     ])
   },
   methods: {
@@ -50,7 +50,7 @@ export const playerMixin = {
         list = this.sequenceList
       }
       this.resetCurrentIndex(list)
-      this.setPlaylist(list)
+      this.setPlayList(list)
     },
     resetCurrentIndex(list) {
       let index = list.findIndex((item) => {
@@ -78,10 +78,10 @@ export const playerMixin = {
       return index > -1
     },
     ...mapMutations({
-      setPlayMode: 'SET_PLAY_MODE',
-      setPlaylist: 'SET_PLAYLIST',
+      setPlayingState: 'SET_PLAYING_STATE',
       setCurrentIndex: 'SET_CURRENT_INDEX',
-      setPlayingState: 'SET_PLAYING_STATE'
+      setPlayMode: 'SET_PLAY_MODE',
+      setPlayList: 'SET_PLAYLIST'
     }),
     ...mapActions([
       'saveFavoriteList',
@@ -121,3 +121,4 @@ export const searchMixin = {
     ])
   }
 }
+

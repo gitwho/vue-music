@@ -6,7 +6,7 @@
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
       <div class="play-wrapper">
-        <div class="play" ref="playBtn">
+        <div class="play" ref="playBtn" v-show="songs.length" @click="random">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
@@ -22,7 +22,10 @@
             @scroll="scroll"
     >
       <div class="song-list-wrapper">
-        <song-list @select="selectItem" :songs="songs"></song-list>
+        <song-list :rank="rank" @select="selectItem" :songs="songs"></song-list>
+      </div>
+      <div class="loading-container" v-show="!songs.length">
+        <loading></loading>
       </div>
     </scroll>
   </div>
@@ -30,14 +33,14 @@
 
 <script type="text/ecmascript-6">
   import Scroll from 'base/scroll/scroll'
-  //  import Loading from 'base/loading/loading'
+  import Loading from 'base/loading/loading'
   import SongList from 'base/song-list/song-list'
   //  import {prefixStyle} from 'common/js/dom'
   //  import {playlistMixin} from 'common/js/mixin'
   import {mapActions} from 'vuex'
 
-  //  const RESERVED_HEIGHT = 40
   //  const transform = prefixStyle('transform')
+
 
   const RESERVED_HEIGHT = 40
 
@@ -97,8 +100,14 @@
           index
         })
       },
+      random(){
+        this.randomPlay({
+          list: this.songs
+        })
+      },
       ...mapActions([
-        'selectPlay'
+        'selectPlay',
+        'randomPlay'
       ])
     },
     watch: {
@@ -133,7 +142,7 @@
       }
     },
     components: {
-      Scroll, SongList
+      Scroll, SongList, Loading
     }
   }
 </script>

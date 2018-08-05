@@ -15,8 +15,9 @@ export default class Song {
   }
 
   getLyric() {
+
     if (this.lyric) {
-      return Promise.resolve(this.lyric)
+      return Promise.resolve(this.lyric)  //返回promise对象
     }
 
     return new Promise((resolve, reject) => {
@@ -33,6 +34,7 @@ export default class Song {
 }
 
 export function createSong(musicData) {
+
   return new Song({
     id: musicData.songid,
     mid: musicData.songmid,
@@ -41,11 +43,25 @@ export function createSong(musicData) {
     album: musicData.albumname,
     duration: musicData.interval,
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
-    url: `http://ws.stream.qqmusic.qq.com/${musicData.songid}.m4a?fromtag=46`
+    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?vkey=0&guid=6344165318&uin=0&fromtag=66`
+  })
+}
+// 2018 改url
+export function createSong2(musicData, songVkey) {
+
+  return new Song({
+    id: musicData.songid,
+    mid: musicData.songmid,
+    singer: filterSinger(musicData.singer),
+    name: musicData.songname,
+    album: musicData.albumname,
+    duration: musicData.interval,
+    image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+    url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?vkey=${songVkey}&guid=6344165318&uin=0&fromtag=66`
   })
 }
 
-function filterSinger(singer) {
+export function filterSinger(singer) {
   let ret = []
   if (!singer) {
     return ''

@@ -1,7 +1,10 @@
+// 同步修改
+
 import * as types from './mutation-types'
 
-//方法
+//方法，函数 数据修改
 const mutations = {
+  // [types.SET_SINGER](state, singer) 方法名(参数， 传参)
   [types.SET_SINGER](state, singer){
     state.singer = singer
   },
@@ -22,6 +25,14 @@ const mutations = {
   },
   [types.SET_CURRENT_INDEX](state, index) {
     state.currentIndex = index
+  },
+
+  [types.SET_SEARCH_HISTORY](state, history) {
+    state.searchHistory = history
+  },
+
+  [types.SET_TOP_LIST](state, topList) {
+    state.topList = topList
   },
 }
 
