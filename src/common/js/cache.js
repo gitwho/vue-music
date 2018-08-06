@@ -20,7 +20,7 @@ function insertArray(arr, val, compare, maxLen) {
   // eg：
   // [1, 5, 10, 15].findIndex(function(value, index, arr) {
   //   return value > 9;
-  // }) // 2
+  // })   2
   const index = arr.findIndex(compare)
   if (index === 0) {
     return
